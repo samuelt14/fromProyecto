@@ -29,7 +29,6 @@
         <td>CIUDAD Y FECHA: <input type="text"></td>
         <td>HORA INICIO: <input type="text"></td>
         <td>HORA FIN: <input type="text"></td>
-        <td></td>
       </tr>
       <tr>
         <td>LUGAR Y/O ENLACE: BOGOTÁ</td>
@@ -87,27 +86,19 @@
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
     </script>
-    <table>
-      <thead>
-        <tr>
-          <th>Instructor</th>
-          <th>Temática</th>
-          <th>Competencia</th>
-          <th>Resultado de Aprendizaje</th>
-          <th>Número Aprendices Evaluados</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-          <td><input type="text"></td>
-        </tr>
-      </tbody>
-    </table>
-
+      <table>
+        <thead>
+          <tr>
+            <th>Instructor</th>
+            <th>Temática</th>
+            <th>Competencia</th>
+            <th>Resultado de Aprendizaje</th>
+            <th>Número Aprendices Evaluados</th>
+          </tr>
+        </thead>
+        <tbody id="evaluacion">
+        </tbody>
+      </table>
     <h2>Plan de Mejoramiento</h2>
     <p>
       3. Los instructores reportan que los siguientes aprendices no cumplieron con la entrega de evidencias, se adelantó con ellos el debido proceso y se encuentran con plan de mejoramiento por parte de Coordinación o Comité. En el siguiente enlace se pueden consultar los aprendices reportados en la hoja PDM correspondiente al área de infraestructura y se detallan a continuación:
