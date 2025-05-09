@@ -28,20 +28,6 @@ for (let i = 1; i <= 15; i++) {
   tbody2.appendChild(row);
 }
 
-const tbody3 = document.getElementById('aprendices3');
-for (let i = 1; i <= 15; i++) {
-  const row = document.createElement('tr');
-  row.innerHTML = `
-    <td>${i}</td>
-    <td><input type="text"></td>
-    <td><input type="text"></td>
-    <td><input type="text"></td>
-    <td><input type="text"></td>
-    <td><input type="text"></td>
-  `;
-  tbody2.appendChild(row);
-}
-
 function descargarActa() {
   const element = document.getElementById('acta');
   const nombre = document.getElementById('nombre')?.value.trim() || 'acta_sena';
