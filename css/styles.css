@@ -117,4 +117,41 @@ h2 {
     text-align: left; /* Asegura que el texto en los campos esté también alineado a la izquierda */
 }
 
+.tabla-container {
+    overflow-x: auto;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 224, 0.9); /* mismo tono de fondo */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.tabla-evaluacion {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-evaluacion th, .tabla-evaluacion td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+}
+
+.tabla-evaluacion th {
+    background-color: #dcdcdc;
+    font-weight: bold;
+}
+
+.tabla-evaluacion input[type="text"],
+.tabla-evaluacion input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid #333;
+    background: transparent;
+    outline: none;
+}
 

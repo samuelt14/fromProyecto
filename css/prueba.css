@@ -86,6 +86,8 @@ body {
     justify-content: center;
     align-items: flex-start;
     padding-top: 20px;
+    align-items: center;
+    background-image: url('/img/fondo.jpg'); 
 }
 
 .consulta-container {
@@ -181,6 +183,22 @@ label {
     font-weight: bold;
     color: #333;
     margin-bottom: 5px;
+}
+
+.btn {
+    width: 100%;
+    background-color: #e6e6e6;
+    padding: 10px;
+    font-size: 18px;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.4s;
+}
+
+.btn:hover {
+    background-color: #80b18c;
 }
 
 select,

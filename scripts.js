@@ -1,0 +1,69 @@
+// Generar filas dinámicamente para la tabla de aprendices (32 filas)
+const tbody = document.getElementById('aprendices');
+for (let i = 1; i <= 32; i++) {
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${i}</td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+  `;
+  tbody.appendChild(row);
+}
+
+// Generar filas dinámicamente para la segunda tabla de aprendices (15 filas)
+const tbody2 = document.getElementById('aprendices2');
+for (let i = 1; i <= 15; i++) {
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${i}</td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+    <td><input type="text"></td>
+  `;
+  tbody2.appendChild(row);
+}
+
+// Función para descargar el acta en PDF
+function descargarActa() {
+  const element = document.getElementById('acta');
+  const nombre = document.getElementById('nombre')?.value || 'acta_sena';
+  const opt = {
+    margin: 0.3,
+    filename: `${nombre}.pdf`,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 1, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+  html2pdf().set(opt).from(element).save();
+}
+
+// Función simulada para subir el acta
+function subirActa() {
+  alert('Simulación de subida de acta. Conéctese a un backend real para almacenar el archivo.');
+}
+
+// (Opcional) Validar campos antes de descargar PDF
+function validarAntesDeDescargar() {
+  const inputs = document.querySelectorAll('#acta input, #acta textarea');
+  let vacios = 0;
+  inputs.forEach(input => {
+    if (input.value.trim() === '') {
+      vacios++;
+      input.style.border = '1px solid red'; // marcar vacío
+    } else {
+      input.style.border = ''; // limpiar borde si ya tiene valor
+    }
+  });
+
+  if (vacios > 0) {
+    alert(`Hay ${vacios} campos vacíos. Por favor completa la información antes de descargar.`);
+  } else {
+    descargarActa();
+  }
+}
+
