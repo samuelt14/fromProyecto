@@ -30,7 +30,7 @@ for (let i = 1; i <= 15; i++) {
 
 const tbodyEvaluacion = document.getElementById('evaluacion');
 
-for (let i = 1; i <= 10; i++) {
+for (let i = 1; i <= 7; i++) {
   const row = document.createElement('tr');
   row.innerHTML = `
     <td><input type="text" /></td>
@@ -55,7 +55,7 @@ function descargarActa() {
     filename:     `${nombre}.pdf`,
     image:        { type: 'jpeg', quality: 0.98 },
     html2canvas:  { scale: 1, useCORS: true },
-    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    jsPDF:        { unit: 'mm', format: 'ledger', orientation: 'portrait' },
     pagebreak: {
       mode: ['avoid-all', 'css'],
       before: 'h2',
