@@ -13,7 +13,7 @@ for (let i = 1; i <= 32; i++) {
   tbody.appendChild(row);
 }
 
-// Generar filas dinámicamente para la segunda tabla de aprendices (15 filas)
+// Generar filas dinámicamente para la segunda tabla de aprendices 
 const tbody2 = document.getElementById('aprendices2');
 for (let i = 1; i <= 15; i++) {
   const row = document.createElement('tr');
