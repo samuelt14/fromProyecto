@@ -37,7 +37,7 @@ function descargarActa() {
     filename: `${nombre}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 1, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    jsPDF: { unit: 'mm', format: 'ledger', orientation: 'portrait' }
   };
   html2pdf().set(opt).from(element).save();
 }
