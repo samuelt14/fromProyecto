@@ -1,3 +1,4 @@
+/* Estilo general para pantalla */
 * {
     margin: 0;
     padding: 0;
@@ -12,10 +13,10 @@ html, body {
 
 body {
     font-family: Arial, sans-serif;
-    background-image: url('/img/fondo.jpg'); 
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
+    background-image: url('/img/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +26,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 20px;
 }
 
 .login-box {
@@ -60,6 +62,7 @@ h2 {
     border-bottom: 2px solid #333;
     background: transparent;
     outline: none;
+    text-align: left;
 }
 
 .btn {
@@ -79,7 +82,7 @@ h2 {
 }
 
 .error-msg {
-    color: #e24848; 
+    color: #e24848;
     font-size: 14px;
     margin-top: 10px;
 }
@@ -96,34 +99,21 @@ h2 {
     text-decoration: underline;
 }
 
-/* Estilo para las etiquetas alineadas a la izquierda */
 .info-text {
     font-size: 16px;
     color: #333;
     margin-bottom: 5px;
     display: block;
-    text-align: left; /* Alinea el texto a la izquierda */
-}
-
-/* Opcional: puedes ajustar el estilo de los inputs si es necesario */
-.textbox input {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-bottom: 2px solid #333;
-    background: transparent;
-    outline: none;
-    text-align: left; /* Asegura que el texto en los campos esté también alineado a la izquierda */
+    text-align: left;
 }
 
 .tabla-container {
     overflow-x: auto;
     margin-top: 20px;
-    background-color: rgba(255, 255, 224, 0.9); /* mismo tono de fondo */
+    background-color: rgba(255, 255, 224, 0.9);
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .tabla-evaluacion {
@@ -155,3 +145,45 @@ h2 {
     outline: none;
 }
 
+/* Clase para cortar página manualmente */
+.page-break {
+    page-break-before: always;
+    break-before: page;
+}
+
+/* Clase activada temporalmente al generar PDF */
+.pdf-export {
+    background: white !important;
+    background-image: none !important;
+    box-shadow: none !important;
+}
+
+/* Estilos específicos para impresión */
+@media print {
+    body, html {
+        background: white !important;
+        background-image: none !important;
+        height: auto !important;
+        width: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    .container {
+        display: block !important;
+        min-height: auto !important;
+        padding: 0 20px !important;
+    }
+
+    .login-box,
+    .tabla-container {
+        box-shadow: none !important;
+        background-color: white !important;
+    }
+
+    .page-break {
+        page-break-before: always;
+        break-before: page;
+    }
+}
