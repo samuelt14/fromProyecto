@@ -1,7 +1,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-image: url('/img/fondo.webp'); 
+    background-image: url('/src/assets/img/fondo.webp'); 
     background-size: cover;
     background-position: center;
     color: #333;

@@ -87,7 +87,7 @@ body {
     align-items: flex-start;
     padding-top: 20px;
     align-items: center;
-    background-image: url('/img/fondo.webp'); 
+    background-image: url('/src/assets/img/fondo.webp'); 
 }
 
 .consulta-container {
