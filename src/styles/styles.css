@@ -13,7 +13,7 @@ html, body {
 
 body {
     font-family: Arial, sans-serif;
-    background-image: url('/img/fondo.webp');
+    background-image: url('/src/assets/img/fondo.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
