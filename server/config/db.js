@@ -1,11 +1,11 @@
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
-  host: '127.0.0.1',      // IP local según la imagen
+  host: '127.0.0.1',      
   user: 'sena_user',
   password: 'sena123',
-  database: 'ACEF',       // Cambia esto por el nombre real de tu base si es otro
-  port: 3306              // Puerto por defecto
+  database: 'ACEF',       
+  port: 3306              
 });
 
 connection.connect((err) => {
