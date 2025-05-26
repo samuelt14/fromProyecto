@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta SENA</title>
+    <link rel="stylesheet" href="/src/styles/prueba.css">
+</head>
+<body>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="sidebar">
+        <button class="sidebar-btn">Reportes</button>
+        <button class="sidebar-btn">Explorar programas</button>
+        <button class="sidebar-btn">Alertas</button>
+        <button class="sidebar-btn">Actas</button>
+    </div>
+
+    <div class="content">
+        <div class="consulta-container">
+            <div class="consulta">
+                <img src="/src/assets/img/senaLogo.webp" alt="SENA Logo" class="logo">
+                <h2>Consulta aquí</h2>
+                <p>Escribe o despliega.</p>
+                <div class="dropdowns">
+                    <div class="dropdown-group">
+                        <label for="programa">Programa</label>
+                        <select id="programa">
+                            <option value="">Seleccione un programa</option>
+                            <option value="programa1">Programa 1</option>
+                            <option value="programa2">Programa 2</option>
+                        </select>
+                    </div>
+                    <div class="dropdown-group">
+                        <label for="ficha">Ficha</label>
+                        <select id="ficha">
+                            <option value="">Seleccione una ficha</option>
+                            <option value="ficha1">Ficha 1</option>
+                            <option value="ficha2">Ficha 2</option>
+                        </select>
+                    </div>
+                    <div class="dropdown-group">
+                        <label for="buscarFicha">Buscar Programa</label>
+                        <input type="text" id="buscarFicha" placeholder="Buscar Programa...">
+                    </div>
+                    <div class="dropdown-group">
+                        <label for="buscarFicha">Buscar Ficha</label>
+                        <input type="text" id="buscarFicha" placeholder="Buscar ficha...">
+                    </div>
+                    <button type="submit" class="btn">Consultar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu" id="menu">
+        <a href="#">Seleccionar otra coordinación</a>
+        <a href="#">Ayuda</a>
+        <a href="#">Cerrar sesión</a>
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("show");
+        }
+    </script>
+</body>
+</html>

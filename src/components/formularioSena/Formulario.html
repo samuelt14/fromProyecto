@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario Acta SENA</title>
+  <link rel="stylesheet" href="FormularioActa.css" />
+</head>
+<body>
+  <div class="container" id="acta">
+    <!-- Logo -->
+    <div style="width:100px; height:100px; display:flex; align-items:center; justify-content:center; margin: 0 auto;">
+      <img src="/src/assets/img/senaLogo.webp" alt="Logo" style="max-width:100%; max-height:100%;" />
+    </div>
+
+    <!-- Eliminamos por completo el campo Fecha -->
+
+    <!-- Resto del formulario intacto -->
+    <table>
+      <tr>
+        <td colspan="4" style="text-align: center; font-weight: bold;">
+          ACTA No. <input type="text" id="numeroActa" style="width:40px; text-align:center;" placeholder="N°">
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          NOMBRE DEL COMITÉ O DE LA REUNIÓN: <input type="text" id="nombre" placeholder="Nombre del comité">
+        </td>
+      </tr>
+      <tr>
+        <td>CIUDAD Y FECHA: <input type="text" id="ciudadFecha"></td>
+        <td>HORA INICIO: <input type="text" id="horaInicio" placeholder="00:00"></td>
+        <td>HORA FIN: <input type="text" id="horaFin" placeholder="00:00"></td>
+      </tr>
+      <tr>
+        <td>LUGAR Y/O ENLACE: BOGOTÁ</td>
+        <td colspan="3">DIRECCIÓN / REGIONAL / CENTRO: <input type="text" id="direccion"></td>
+      </tr>
+    </table>
+
+    <h2>Información General</h2>
+    <table>
+      <tr><td colspan="3">AGENDA O PUNTOS PARA DESARROLLAR:</td></tr>
+      <tr><td colspan="3"><textarea id="agenda" rows="3" placeholder="Describe los temas a tratar..."></textarea></td></tr>
+      <tr><td colspan="3">OBJETIVO(S) DE LA REUNIÓN:</td></tr>
+      <tr><td colspan="3"><textarea id="objetivos" rows="3" placeholder="Describe el objetivo de la reunión..."></textarea></td></tr>
+    </table>
+
+    <h2>Desarrollo de la Reunión</h2>
+    <p>
+      Con el fin de identificar las novedades de los aprendices...
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Tipo de Documento</th>
+          <th>Número de Documento</th>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="aprendices"></tbody>
+    </table>
+
+    <p>
+      1. Se revisan los aprendices que una vez finalizado el trimestre continúan asistiendo a la formación, el total de aprendices es 
+      <input type="number" id="totalAprendices" style="width: 50px; text-align: center;" placeholder="0">, los cuales se relacionan alfabéticamente por nombre a continuación:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>N°</th>
+          <th>Tipo de Documento</th>
+          <th>Número de Documento</th>
+          <th>Nombre</th>
+          <th>Apellidos</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="aprendices2"></tbody>
+    </table>
+
+    <h2>Evaluación Trimestral</h2>
+    <p>Los Instructores encargados de evaluar los resultados de aprendizaje durante el I Trimestre de <span id="year"></span>, son:</p>
+    <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+    <table>
+      <thead>
+        <tr>
+          <th>Instructor</th>
+          <th>Temática</th>
+          <th>Competencia</th>
+          <th>Resultado de Aprendizaje</th>
+          <th>Número Aprendices Evaluados</th>
+        </tr>
+      </thead>
+      <tbody id="evaluacion"></tbody>
+    </table>
+
+    <h2>Plan de Mejoramiento</h2>
+    <textarea id="planMejoramiento" rows="4" placeholder="Detalle aquí..."></textarea>
+
+    <h2>Novedades</h2>
+    <textarea id="novedades" rows="4" placeholder="Detalle aquí..."></textarea>
+
+    <h2>Conclusiones</h2>
+    <textarea id="conclusiones" rows="4" placeholder="Escriba aquí las conclusiones..."></textarea>
+
+    <h2>Establecimiento y Aceptación de Compromisos</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Actividad / Decisión</th>
+          <th>Fecha</th>
+          <th>Responsable</th>
+          <th>Firma</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" id="actividad"></td>
+          <td><input type="text" id="fechaActividad"></td>
+          <td><input type="text" id="responsableActividad"></td>
+          <td><input type="text" id="firmaActividad"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>De: Asistentes y Aprobación Decisiones</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Dependencia / Empresa</th>
+          <th>Aprueba (SI/NO)</th>
+          <th>Observación</th>
+          <th>Firma o Participación Virtual</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="text" id="nombreAsistente"></td>
+          <td><input type="text" id="dependencia"></td>
+          <td><input type="text" id="aprueba"></td>
+          <td><input type="text" id="observacion"></td>
+          <td><input type="text" id="firmaAsistente"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="font-size: 12px; margin-top: 20px;">
+      De acuerdo con La Ley 1581 de 2012...
+    </p>
+
+    <h2>Anexos</h2>
+    <textarea id="anexos" rows="3" placeholder="Especificar si hay anexos adjuntos..."></textarea>
+
+    <footer>GOR-F-084 V01</footer>
+  </div>
+
+  <button onclick="descargarActa()">Descargar Acta</button>
+  <button onclick="subirActa()">Subir Acta</button>
+
+  <!-- Librerías externas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- Lógica JS -->
+  <script type="module" src="FormularioActa.js"></script>
+</body>
+</html>
