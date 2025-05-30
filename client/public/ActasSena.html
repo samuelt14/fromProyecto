@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta SENA</title>
+    <link rel="stylesheet" href="/src/styles/prueba.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+    <button class="menu-btn" onclick="toggleMenu()">☰</button>
+    <div class="sidebar">
+        <button class="sidebar-btn">Reportes</button>
+        <button class="sidebar-btn">Explorar programas</button>
+        <button class="sidebar-btn">Alertas</button>
+        <button class="sidebar-btn">Actas</button>
+    </div>
+
+    <div class="content">
+        <iframe src="/src/components/formularioSena/Formulario.html" width="1000" height="900" title="Wikipedia"></iframe>
+    </div>
+
+    <div class="menu" id="menu">
+        <a href="#">Seleccionar otra coordinación</a>
+        <a href="#">Ayuda</a>
+        <a href="#">Cerrar sesión</a>
+    </div>
+    <script>
+        function toggleMenu() {
+            document.getElementById("menu").classList.toggle("show");
+        }
+    </script>
+<script src="./scripts.js"></script>
+</body>
+</html>

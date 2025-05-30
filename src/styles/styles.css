@@ -1,0 +1,189 @@
+/* Estilo general para pantalla */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('/src/assets/img/fondo.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-box {
+    background-color: rgba(255, 255, 224, 0.9);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 320px;
+}
+
+.logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.textbox {
+    margin-bottom: 20px;
+}
+
+.textbox input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid #333;
+    background: transparent;
+    outline: none;
+    text-align: left;
+}
+
+.btn {
+    width: 100%;
+    background-color: #e6e6e6;
+    padding: 10px;
+    font-size: 18px;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.4s;
+}
+
+.btn:hover {
+    background-color: #80b18c;
+}
+
+.error-msg {
+    color: #e24848;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.back-link {
+    display: block;
+    margin-top: 20px;
+    color: green;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.info-text {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+}
+
+.tabla-container {
+    overflow-x: auto;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 224, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.tabla-evaluacion {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-evaluacion th, .tabla-evaluacion td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+    font-size: 14px;
+    color: #333;
+}
+
+.tabla-evaluacion th {
+    background-color: #dcdcdc;
+    font-weight: bold;
+}
+
+.tabla-evaluacion input[type="text"],
+.tabla-evaluacion input[type="number"] {
+    width: 100%;
+    padding: 6px;
+    font-size: 14px;
+    border: none;
+    border-bottom: 1px solid #333;
+    background: transparent;
+    outline: none;
+}
+
+/* Clase para cortar página manualmente */
+.page-break {
+    page-break-before: always;
+    break-before: page;
+}
+
+/* Clase activada temporalmente al generar PDF */
+.pdf-export {
+    background: white !important;
+    background-image: none !important;
+    box-shadow: none !important;
+}
+
+/* Estilos específicos para impresión */
+@media print {
+    body, html {
+        background: white !important;
+        background-image: none !important;
+        height: auto !important;
+        width: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    .container {
+        display: block !important;
+        min-height: auto !important;
+        padding: 0 20px !important;
+    }
+
+    .login-box,
+    .tabla-container {
+        box-shadow: none !important;
+        background-color: white !important;
+    }
+
+    .page-break {
+        page-break-before: always;
+        break-before: page;
+    }
+}
