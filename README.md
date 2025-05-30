@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # 🌐 ACEF — Aplicación de Control y Evolución Formativa
 
 > Plataforma web para la **gestión académica**, el **seguimiento formativo** y la **integración institucional** en ambientes educativos del **SENA**.
