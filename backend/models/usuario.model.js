@@ -11,14 +11,6 @@ const Usuario = {
       [usuario.Nombre, usuario.Apellido, usuario.Correo, usuario.Password],
       callback
     );
-  },
-
-  buscarPorId: (id, callback) => {
-    db.query('SELECT * FROM usuario WHERE id_usuario = ?', [id], callback);
-  },
-
-  actualizarPassword: (id, nuevaPassword, callback) => {
-    db.query('UPDATE usuario SET Password = ? WHERE id_usuario = ?', [nuevaPassword, id], callback);
   }
 };
 
