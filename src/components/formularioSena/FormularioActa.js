@@ -40,6 +40,28 @@ function verificarUltimaFila(input, tablaId) {
   }
 }
 
+function obtenerTrimestreYAnio() {
+  const fechaActual = new Date();
+  const mes = fechaActual.getMonth(); // Enero = 0, Diciembre = 11
+  const anio = fechaActual.getFullYear();
+
+  const trimestres = ["I", "II", "III", "IV"];
+  const trimestre = trimestres[Math.floor(mes / 3)];
+
+  return { trimestre, anio };
+}
+
+function actualizarTextoEvaluacion() {
+  const { trimestre, anio } = obtenerTrimestreYAnio();
+  const texto = `Los Instructores encargados de evaluar los resultados de aprendizaje durante el ${trimestre} Trimestre de ${anio}, son:`;
+  
+  const span = document.getElementById("textoEvaluacion");
+  if (span) {
+    span.textContent = texto;
+  }
+}
+
+actualizarTextoEvaluacion();
 
 // Inicializar con una sola fila
 crearFilaAprendices(document.getElementById('aprendices'), 1);

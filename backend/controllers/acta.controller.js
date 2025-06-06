@@ -27,6 +27,9 @@ exports.subir = (req, res) => {
     return res.status(400).json({ mensaje: 'El campo ficha_id es requerido' });
   }
 
+  // Separar ciudad si ciudadFecha tiene formato "Bogotá, 2024-05-31"
+  const ciudad = ciudadFecha?.split(',')[0]?.trim() || '';
+
   const sql = `
     INSERT INTO acta (
       numero_acta, nombre_comite, ciudad_fecha, fecha, hora_inicio, hora_fin,
@@ -40,8 +43,8 @@ exports.subir = (req, res) => {
 
   const valores = [
     numeroActa,
-    nombre, // nombre se guarda en columna nombre_comite
-    ciudadFecha,
+    nombre,             // nombre_comite
+    ciudad,             // solo ciudad
     horaInicio,
     horaFin,
     direccion,
@@ -71,6 +74,9 @@ exports.subir = (req, res) => {
     }
 
     console.log('✅ Acta insertada con ID:', result.insertId);
-    res.status(201).json({ mensaje: 'Acta registrada correctamente', acta_id: result.insertId });
+    res.status(201).json({
+      mensaje: 'Acta registrada correctamente',
+      acta_id: result.insertId
+    });
   });
 };
