@@ -142,100 +142,81 @@ async function descargarActa() {
 }
 
 
-function subirActa() {
-  const acta = {
-    numeroActa: document.getElementById("numeroActa").value,
-    nombre: document.getElementById("nombre").value,
-    ciudadFecha: document.getElementById("ciudadFecha").value,
-    horaInicio: document.getElementById("horaInicio").value,
-    horaFin: document.getElementById("horaFin").value,
-    direccion: document.getElementById("direccion").value,
-    agenda: document.getElementById("agenda").value,
-    objetivos: document.getElementById("objetivos").value,
-    totalAprendices: document.getElementById("totalAprendices").value,
-    planMejoramiento: document.getElementById("planMejoramiento").value,
-    novedades: document.getElementById("novedades").value,
-    conclusiones: document.getElementById("conclusiones").value,
-    actividad: document.getElementById("actividad").value,
-    fechaActividad: document.getElementById("fechaActividad").value,
-    responsableActividad: document.getElementById("responsableActividad").value,
-    firmaActividad: document.getElementById("firmaActividad").value,
-    nombreAsistente: document.getElementById("nombreAsistente").value,
-    dependencia: document.getElementById("dependencia").value,
-    aprueba: document.getElementById("aprueba").value,
-    observacion: document.getElementById("observacion").value,
-    firmaAsistente: document.getElementById("firmaAsistente").value,
-    anexos: document.getElementById("anexos").value
-  };
+async function subirActa() {
+  const BASE_URL = "http://localhost:3000";
 
-  fetch("http://localhost:3000/api/acta", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(acta)
-  })
-    .then(response => response.json())
-    .then(data => {
-      alert(data.mensaje);
-    })
-    .catch(error => {
-      console.error("Error al registrar el acta:", error);
-      alert("No se pudo registrar el acta.");
-    });
+  try {
+    const acta = document.getElementById("acta");
+
+    // 1. Capturar la vista como imagen
+    const canvas = await html2canvas(acta, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+
+    // 2. Convertir la imagen en PDF
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF("p", "mm", "a4");
+    const width = pdf.internal.pageSize.getWidth();
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfHeight = (imgProps.height * width) / imgProps.width;
+    pdf.addImage(imgData, "PNG", 0, 0, width, pdfHeight);
+
+    // 3. Convertir PDF a Blob y preparar FormData
+    const pdfBlob = pdf.output("blob");
+    const formData = new FormData();
+    formData.append("pdf", pdfBlob, "acta.pdf");
+
+
+    // 4. Subir PDF a UploadThing
+    const uploadResponse = await fetch(
+      `${BASE_URL}/api/uploadthing/pdfUploader`,
+      {
+        method: "POST",
+        mode: "cors",             
+        credentials: "include",   
+        body: formData,
+      }
+    );
+    const uploadResult = await uploadResponse.json();
+
+    if (!uploadResponse.ok) {
+      console.error("❌ Error al subir a UploadThing:", uploadResult);
+      alert("No se pudo subir el acta a UploadThing.");
+      return;
+    }
+
+    const pdfUrl = Array.isArray(uploadResult)
+      ? uploadResult[0].url
+      : uploadResult.url;
+    alert("✅ Acta subida correctamente.\nURL: " + pdfUrl);
+
+    // 5. Guardar la URL en la base de datos
+    const saveResponse = await fetch(
+      `${BASE_URL}/api/acta/subir`,
+      {
+        method: "POST",
+        mode: "cors",             // <-- y aquí también
+        credentials: "include",   // <-- y aquí
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ anexos: pdfUrl }),
+      }
+    );
+    const saveResult = await saveResponse.json();
+
+    if (!saveResponse.ok) {
+      console.error("❌ Error al guardar en la BBDD:", saveResult);
+      alert("El acta se subió, pero no se pudo guardar en la base de datos.");
+    } else {
+      console.log("✅ URL guardada en la BBDD:", saveResult);
+      alert("El acta se ha registrado correctamente en la base de datos.");
+    }
+  } catch (error) {
+    console.error("Error inesperado:", error);
+    alert("Hubo un error al procesar y subir el acta.");
+  }
 }
 
 
 
-function recopilarDatosFormulario() {
-  const getInput = id => document.getElementById(id)?.value || '';
-
-  const obtenerFilas = (tbodyId) => {
-    const filas = [];
-    const tbody = document.getElementById(tbodyId);
-    if (!tbody) return filas;
-    tbody.querySelectorAll('tr').forEach(tr => {
-      const celdas = Array.from(tr.querySelectorAll('input, textarea')).map(input => input.value.trim());
-      if (celdas.some(val => val !== '')) filas.push(celdas);
-    });
-    return filas;
-  };
-
-  return {
-    numeroActa: getInput('numeroActa'),
-    nombre: getInput('nombre'),
-    ciudadFecha: getInput('ciudadFecha'),
-    horaInicio: getInput('horaInicio'),
-    horaFin: getInput('horaFin'),
-    direccion: getInput('direccion'),
-    agenda: getInput('agenda'),
-    objetivos: getInput('objetivos'),
-    totalAprendices: getInput('totalAprendices'),
-    planMejoramiento: getInput('planMejoramiento'),
-    novedades: getInput('novedades'),
-    conclusiones: getInput('conclusiones'),
-    anexos: getInput('anexos'),
-
-    actividad: getInput('actividad'),
-    fechaActividad: getInput('fechaActividad'),
-    responsableActividad: getInput('responsableActividad'),
-    firmaActividad: getInput('firmaActividad'),
-
-    asistentes: {
-      nombre: getInput('nombreAsistente'),
-      dependencia: getInput('dependencia'),
-      aprueba: getInput('aprueba'),
-      observacion: getInput('observacion'),
-      firma: getInput('firmaAsistente')
-    },
-
-    aprendices1: obtenerFilas('aprendices'),
-    aprendices2: obtenerFilas('aprendices2'),
-    evaluacion: obtenerFilas('evaluacion')
-  };
-}
-
-//npm install express cors
 
 window.crearFilaAprendices = crearFilaAprendices;
 window.crearFilaEvaluacion = crearFilaEvaluacion;
