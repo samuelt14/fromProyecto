@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Usuario = require('../models/usuario.model');
+const nodemailer = require('nodemailer');
+const db = require('../config/db');
 require('dotenv').config();
 
 // Registro
@@ -70,7 +72,66 @@ const login = (req, res) => {
   });
 };
 
+// Recuperar contraseña: enviar correo
+const forgotPassword = async (req, res) => {
+  const { correo } = req.body;
+
+  Usuario.buscarPorCorreo(correo, async (err, results) => {
+    if (err || results.length === 0) {
+      return res.status(404).json({ message: 'Correo no encontrado' });
+    }
+
+    const user = results[0];
+    const token = jwt.sign({ id: user.id_usuario, correo: user.correo }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    const resetLink = `http://localhost:3000/reset-password/${token}`;
+
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      }
+    });
+
+    await transporter.sendMail({
+      from: '"Soporte" <soporte@tuapp.com>',
+      to: correo,
+      subject: "Restablecer contraseña",
+      html: `<p>Haz clic en este enlace para cambiar tu contraseña:</p><a href="${resetLink}">${resetLink}</a>`
+    });
+
+    res.json({ message: 'Correo enviado con éxito' });
+  });
+};
+
+// Restablecer contraseña con token
+const resetPassword = (req, res) => {
+  const { token } = req.params;
+  const { nuevaPassword } = req.body;
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const correo = decoded.correo;
+
+    bcrypt.hash(nuevaPassword, 10, (err, hash) => {
+      if (err) return res.status(500).json({ error: 'Error al encriptar la contraseña' });
+
+      db.query('UPDATE usuario SET Password = ? WHERE correo = ?', [hash, correo], (error, result) => {
+        if (error) return res.status(500).json({ error: 'Error al actualizar contraseña' });
+
+        res.json({ message: 'Contraseña actualizada correctamente' });
+      });
+    });
+  } catch (error) {
+    return res.status(400).json({ error: 'Token inválido o expirado' });
+  }
+};
+
+// Exportar todas las funciones correctamente
 module.exports = {
   registrar,
-  login
+  login,
+  forgotPassword,
+  resetPassword
 };
