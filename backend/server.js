@@ -1,8 +1,18 @@
+<<<<<<< Updated upstream
 // backend/server.js
 const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const path = require("path");
+=======
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth.routes');
+const actaRoutes = require('./routes/acta.routes'); // 👈 NUEVO
+const busquedaRoutes = require('./routes/busqueda.routes');// 👈 NUEVO
+const mysql = require('mysql2');
+>>>>>>> Stashed changes
 
 dotenv.config();
 
@@ -17,11 +27,17 @@ app.use(
   })
 );
 
+<<<<<<< Updated upstream
 // Rutas
 const authRoutes = require("./routes/auth.routes");
 const actaRoutes = require("./routes/acta.routes");
 app.use("/api/auth", authRoutes);
 app.use("/api/acta", actaRoutes);
+=======
+app.use('/api/auth', authRoutes);
+app.use('/api', actaRoutes); 
+app.use('/api', busquedaRoutes);// 👈 NUEVO
+>>>>>>> Stashed changes
 
 // UploadThing (IMPORTANTE: aquí van las importaciones y montaje)
 const { createRouteHandler } = require("uploadthing/express");
