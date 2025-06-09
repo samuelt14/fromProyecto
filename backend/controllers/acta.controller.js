@@ -1,76 +1,25 @@
+// controllers/actaController.js
 const db = require('../config/db');
 
 exports.subir = (req, res) => {
-  const {
-    numeroActa,
-    nombre, 
-    ciudadFecha,
-    horaInicio,
-    horaFin,
-    direccion,
-    agenda,
-    objetivos,
-    totalAprendices,
-    planMejoramiento,
-    novedades,
-    conclusiones,
-    anexos,
-    actividad,
-    fechaActividad,
-    responsableActividad,
-    firmaActividad,
-    asistentes,
-    ficha_id
-  } = req.body;
+  const { anexos } = req.body;
 
-  if (!ficha_id) {
-    return res.status(400).json({ mensaje: 'El campo ficha_id es requerido' });
+  if (!anexos || !anexos.startsWith('http')) {
+    return res.status(400).json({ mensaje: 'Debes proporcionar una URL válida para el archivo.' });
   }
 
-  const sql = `
-    INSERT INTO acta (
-      numero_acta, nombre_comite, ciudad_fecha, fecha, hora_inicio, hora_fin,
-      direccion, agenda, objetivos, total_aprendices,
-      plan_mejoramiento, novedades, conclusiones, anexos,
-      actividad, fecha_actividad, responsable_actividad, firma_actividad,
-      nombre_asistente, dependencia, aprueba, observacion, firma_asistente,
-      ficha_id
-    ) VALUES (?, ?, ?, CURDATE(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-  `;
+  const sql = 'INSERT INTO acta (anexos) VALUES (?)';
 
-  const valores = [
-    numeroActa,
-    nombre, // nombre se guarda en columna nombre_comite
-    ciudadFecha,
-    horaInicio,
-    horaFin,
-    direccion,
-    agenda,
-    objetivos,
-    totalAprendices,
-    planMejoramiento,
-    novedades,
-    conclusiones,
-    anexos,
-    actividad,
-    fechaActividad,
-    responsableActividad,
-    firmaActividad,
-    asistentes?.nombre || '',
-    asistentes?.dependencia || '',
-    asistentes?.aprueba || '',
-    asistentes?.observacion || '',
-    asistentes?.firma || '',
-    ficha_id
-  ];
-
-  db.query(sql, valores, (err, result) => {
+  db.query(sql, [anexos], (err, result) => {
     if (err) {
-      console.error('❌ Error al insertar el acta:', err);
-      return res.status(500).json({ mensaje: 'Error al registrar el acta' });
+      console.error('❌ Error al insertar la URL:', err);
+      return res.status(500).json({ mensaje: 'Error al registrar la URL del archivo.' });
     }
 
-    console.log('✅ Acta insertada con ID:', result.insertId);
-    res.status(201).json({ mensaje: 'Acta registrada correctamente', acta_id: result.insertId });
+    console.log('✅ Archivo registrado con ID:', result.insertId);
+    res.status(201).json({
+      mensaje: 'Archivo registrado correctamente.',
+      acta_id: result.insertId
+    });
   });
 };
