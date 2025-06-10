@@ -28,10 +28,12 @@ app.get("/reset-password/:token", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "client", "index.html"));
 });
 
-
 // ── Montar rutas de API
 app.use("/api/auth", authRoutes);
-app.use("/api", actaRoutes);
+
+// Cambiado: ahora actas queda en /api/acta/*
+app.use("/api/acta", actaRoutes);
+
 app.use("/api", busquedaRoutes);
 app.use("/api", evaluacionRoutes);
 
