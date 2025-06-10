@@ -1,0 +1,47 @@
+<!-- fromProyecto/backend/client/index.html -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Restablecer Contraseña</title>
+</head>
+<body>
+  <div class="container">
+    <h2>Restablecer Contraseña</h2>
+    <form id="resetForm">
+      <label for="password">Nueva contraseña:</label><br />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Introduce tu nueva contraseña"
+        required
+      /><br /><br />
+      <button type="submit">Cambiar contraseña</button>
+    </form>
+  </div>
+
+  <script>
+    document
+      .getElementById("resetForm")
+      .addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const token = window.location.pathname.split("/").pop();
+        const nuevaPass = document.getElementById("password").value;
+        const response = await fetch(`/api/auth/reset-password/${token}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nuevaPassword: nuevaPass })
+        });
+        if (response.ok) {
+          alert("✅ Tu contraseña se ha actualizado correctamente.");
+          window.location.href = "/"; // o "/login.html" si tienes uno
+        } else {
+          const errorData = await response.json();
+          alert("❌ Error: " + (errorData.error || "Desconocido"));
+        }
+      });
+  </script>
+</body>
+</html>
