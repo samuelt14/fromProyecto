@@ -16,6 +16,15 @@
       overflow-wrap: break-word;
       box-sizing: border-box;
     }
+    .firma-img {
+      height: 60px;
+    }
+    td.firma-clickable {
+      cursor: pointer;
+      text-align: center;
+      color: #444;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -58,7 +67,7 @@
 
     <h2>Desarrollo de la Reunión</h2>
     <p>
-      Con el fin de identificar las novedades de los aprendices, se verifica el reporte de aprendices de la ficha en referencia descargada de SofiaPlus, y se relacionan a continuación: 
+      Con el fin de identificar las novedades de los aprendices...
     </p>
     <table>
       <thead>
@@ -75,8 +84,7 @@
     </table>
 
     <p>
-      1. Se revisan los aprendices que una vez finalizado el trimestre continúan asistiendo a la formación, el total de aprendices es 
-      <input type="number" id="totalAprendices" style="width: 50px; text-align: center;" placeholder="0">, los cuales se relacionan alfabéticamente por nombre a continuación:
+      1. Se revisan los aprendices que una vez finalizado el trimestre...
     </p>
     <table>
       <thead>
@@ -132,7 +140,8 @@
           <td><input type="text" id="actividad"></td>
           <td><input type="text" id="fechaActividad"></td>
           <td><input type="text" id="responsableActividad"></td>
-          <td><input type="text" id="firmaActividad"></td>
+          <!-- ✅ CAMBIO: de input a celda clickeable -->
+          <td id="firmaActividad" class="firma-clickable" onclick="insertarFirma(this)">Click para firmar</td>
         </tr>
       </tbody>
     </table>
@@ -154,7 +163,8 @@
           <td><input type="text" id="dependencia"></td>
           <td><input type="text" id="aprueba"></td>
           <td><input type="text" id="observacion"></td>
-          <td><input type="text" id="firmaAsistente"></td>
+          <!-- ✅ CAMBIO: firma con clic -->
+          <td id="firmaAsistente" class="firma-clickable" onclick="insertarFirma(this)">Click para firmar</td>
         </tr>
       </tbody>
     </table>
@@ -178,5 +188,34 @@
 
   <!-- Lógica JS -->
   <script type="module" src="FormularioActa.js"></script>
+
+  <!-- ✅ Lógica de inserción de firma -->
+  <script>
+    async function insertarFirma(celda) {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Sesión expirada. Por favor inicia sesión.");
+        return;
+      }
+
+      try {
+        const res = await fetch("http://localhost:3000/api/usuario/firma", {
+          headers: {
+            Authorization: "Bearer " + token
+          }
+        });
+
+        if (!res.ok) throw new Error("No se pudo obtener la firma");
+
+        const data = await res.json();
+        const firmaURL = "http://localhost:3000/" + data.firma;
+
+        celda.innerHTML = `<img src="${firmaURL}" alt="Firma" class="firma-img">`;
+      } catch (err) {
+        console.error(err);
+        alert("Error al insertar la firma.");
+      }
+    }
+  </script>
 </body>
 </html>
